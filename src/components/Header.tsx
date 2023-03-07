@@ -3,6 +3,7 @@ import { NavLinks } from "./NavLinks";
 
 export const Header = () => {
   const { data: sessionData } = useSession();
+  console.log("🚀 ~ file: Header.tsx:6 ~ Header ~ sessionData:", sessionData);
 
   return (
     <div className="navbar bg-base-100">
