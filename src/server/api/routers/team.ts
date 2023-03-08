@@ -10,4 +10,23 @@ export const teamRouter = createTRPCRouter({
       },
     });
   }),
+
+  create: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        coach: z.string(),
+        manager: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.team.create({
+        data: {
+          name: input.name,
+          coach: input.coach,
+          manager: input.manager,
+          businessId: ctx.session.user.businessId,
+        },
+      });
+    }),
 });
