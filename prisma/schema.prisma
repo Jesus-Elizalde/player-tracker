@@ -44,6 +44,19 @@ model Team {
 
     Business   Business? @relation(fields: [businessId], references: [id])
     businessId String?
+
+    players Player[]
+}
+
+model Player {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    firstName String
+    lastName  String
+
+    Team   Team?   @relation(fields: [teamId], references: [id])
+    teamId String?
 }
 
 // Necessary for Next auth
