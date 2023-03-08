@@ -3,7 +3,6 @@ import { NavLinks } from "./NavLinks";
 
 export const Header = () => {
   const { data: sessionData } = useSession();
-  console.log("🚀 ~ file: Header.tsx:6 ~ Header ~ sessionData:", sessionData);
 
   return (
     <div className="navbar bg-base-100">
@@ -49,7 +48,7 @@ export const Header = () => {
                 className="input-bordered input"
               />
             </div>
-            <div className="dropdown-end dropdown">
+            <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
                 <div className="w-10 rounded-full">
                   <img

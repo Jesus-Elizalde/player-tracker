@@ -6,15 +6,13 @@ export const NewTeamModal = ({
   onSave: (team: { name: string; coach: string; manager: string }) => void;
 }) => {
   const [name, setName] = useState<string>("");
-  console.log("🚀 ~ file: NewTeamModal.tsx:9 ~ name:", name);
   const [coach, setCoach] = useState<string>("");
-  console.log("🚀 ~ file: NewTeamModal.tsx:11 ~ coach:", coach);
   const [manager, setManager] = useState<string>("");
-  console.log("🚀 ~ file: NewTeamModal.tsx:13 ~ manager:", manager);
+
   return (
     <>
-      <label htmlFor="my-modal-6" className="btn">
-        open modal
+      <label htmlFor="my-modal-6" className="btn-accent btn mb-2">
+        New Team
       </label>
 
       {/* Put this part before </body> tag */}

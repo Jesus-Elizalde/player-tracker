@@ -6,7 +6,6 @@ const AllTeamsPage = () => {
   const { data: teams, refetch: refetchTeams } = api.team.getAll.useQuery(
     undefined // no input
   );
-  console.log("🚀 ~ file: index.tsx:7 ~ AllTeamsPage ~ teams:", teams);
 
   const createTeam = api.team.create.useMutation({
     onSuccess: () => {

@@ -29,4 +29,23 @@ export const teamRouter = createTRPCRouter({
         },
       });
     }),
+
+  getOne: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      const { id } = input;
+      return ctx.prisma.team.findUnique({
+        where: { id },
+      });
+    }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.team.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });
