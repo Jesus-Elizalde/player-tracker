@@ -67,7 +67,7 @@ const SingleTeamPage = () => {
         className="btn-error btn ml-3"
         onClick={() => {
           void deleteTeam.mutate({ id });
-          router.push("/teams");
+          void router.push("/teams");
         }}
       >
         Delete Team
