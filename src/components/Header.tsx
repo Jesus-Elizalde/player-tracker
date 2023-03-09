@@ -41,13 +41,6 @@ export const Header = () => {
       <div className="navbar-end">
         {sessionData?.user ? (
           <>
-            <div className="form-control">
-              <input
-                type="text"
-                placeholder="Search"
-                className="input-bordered input"
-              />
-            </div>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
                 <div className="w-10 rounded-full">

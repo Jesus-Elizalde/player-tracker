@@ -36,6 +36,29 @@ export const teamRouter = createTRPCRouter({
       const { id } = input;
       return ctx.prisma.team.findUnique({
         where: { id },
+        include: {
+          players: true,
+        },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(
+      z.object({
+        teamId: z.string(),
+        name: z.string(),
+        coach: z.string(),
+        manager: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.team.update({
+        where: { id: input.teamId },
+        data: {
+          name: input.name,
+          coach: input.coach,
+          manager: input.manager,
+        },
       });
     }),
 
