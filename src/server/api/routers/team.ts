@@ -36,6 +36,9 @@ export const teamRouter = createTRPCRouter({
       const { id } = input;
       return ctx.prisma.team.findUnique({
         where: { id },
+        include: {
+          players: true,
+        },
       });
     }),
 
