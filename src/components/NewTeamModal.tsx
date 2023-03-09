@@ -9,6 +9,34 @@ export const NewTeamModal = ({
   const [coach, setCoach] = useState<string>("");
   const [manager, setManager] = useState<string>("");
 
+  const [nameInput, setNameInput] = useState<boolean>(true);
+  const [coachInput, setCoachInput] = useState<boolean>(true);
+  const [managerInput, setManagerInput] = useState<boolean>(true);
+
+  const submitHandler = (team: {
+    name: string;
+    coach: string;
+    manager: string;
+  }) => {
+    if (name.trim() === "") {
+      setNameInput(false);
+    }
+    if (coach.trim() === "") {
+      setCoachInput(false);
+    }
+    if (manager.trim() === "") {
+      setManagerInput(false);
+    } else {
+      onSave({ name, coach, manager });
+      setName("");
+      setCoach("");
+      setManager("");
+      setNameInput(true);
+      setCoachInput(true);
+      setManagerInput(true);
+    }
+  };
+
   return (
     <>
       <label htmlFor="my-modal-6" className="btn-accent btn mb-2">
@@ -27,7 +55,9 @@ export const NewTeamModal = ({
             <input
               type="text"
               placeholder="Type here"
-              className="input-bordered input w-full max-w-xs"
+              className={`input-bordered input w-full max-w-xs ${
+                !nameInput ? "input-error" : ""
+              }`}
               value={name}
               onChange={(e) => setName(e.currentTarget.value)}
             />
@@ -37,7 +67,9 @@ export const NewTeamModal = ({
             <input
               type="text"
               placeholder="Type here"
-              className="input-bordered input w-full max-w-xs"
+              className={`input-bordered input w-full max-w-xs ${
+                !coachInput ? "input-error" : ""
+              }`}
               value={coach}
               onChange={(e) => setCoach(e.currentTarget.value)}
             />
@@ -47,7 +79,9 @@ export const NewTeamModal = ({
             <input
               type="text"
               placeholder="Type here"
-              className="input-bordered input w-full max-w-xs"
+              className={`input-bordered input w-full max-w-xs ${
+                !managerInput ? "input-error" : ""
+              }`}
               value={manager}
               onChange={(e) => setManager(e.currentTarget.value)}
             />
@@ -61,10 +95,7 @@ export const NewTeamModal = ({
               htmlFor=""
               className="btn"
               onClick={() => {
-                onSave({ name, coach, manager });
-                setName("");
-                setCoach("");
-                setManager("");
+                submitHandler({ name, coach, manager });
               }}
             >
               Create
