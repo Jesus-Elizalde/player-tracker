@@ -31,7 +31,7 @@ export const Header = () => {
             <NavLinks />
           </ul>
         </div>
-        <a className="btn-ghost btn text-xl normal-case">daisyUI</a>
+        <a className="btn-ghost btn text-xl normal-case">Player Tracker</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
