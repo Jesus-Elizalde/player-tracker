@@ -13,9 +13,31 @@ export const NewPlayerModal = ({
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
 
+  const [firstNameInput, setFirstNameInput] = useState<boolean>(true);
+  const [lastNameInput, setLastNameInput] = useState<boolean>(true);
+
   const router = useRouter();
   const { id } = router.query as { id: string };
   const teamId = id;
+
+  const submitHandler = (player: {
+    firstName: string;
+    lastName: string;
+    teamId: string;
+  }) => {
+    if (firstName === "") {
+      setFirstNameInput(false);
+    }
+    if (lastName === "") {
+      setLastNameInput(false);
+    } else {
+      onSave({ firstName, lastName, teamId });
+      setFirstName("");
+      setLastName("");
+      setFirstNameInput(true);
+      setLastNameInput(true);
+    }
+  };
 
   return (
     <>
@@ -35,17 +57,21 @@ export const NewPlayerModal = ({
             <input
               type="text"
               placeholder="Type here"
-              className="input-bordered input w-full max-w-xs"
+              className={`input-bordered input w-full max-w-xs ${
+                !firstNameInput ? "input-error" : ""
+              }`}
               value={firstName}
               onChange={(e) => setFirstName(e.currentTarget.value)}
             />
             <label className="label">
-              <span className="label-text">Coach Name</span>
+              <span className="label-text">Last Name</span>
             </label>
             <input
               type="text"
               placeholder="Type here"
-              className="input-bordered input w-full max-w-xs"
+              className={`input-bordered input w-full max-w-xs ${
+                !lastNameInput ? "input-error" : ""
+              }`}
               value={lastName}
               onChange={(e) => setLastName(e.currentTarget.value)}
             />
@@ -59,9 +85,7 @@ export const NewPlayerModal = ({
               htmlFor=""
               className="btn"
               onClick={() => {
-                onSave({ firstName, lastName, teamId });
-                setFirstName("");
-                setLastName("");
+                submitHandler({ firstName, lastName, teamId });
               }}
             >
               Create

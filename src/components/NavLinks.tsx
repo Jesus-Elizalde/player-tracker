@@ -6,9 +6,9 @@ export const NavLinks = () => {
       <li>
         <Link href={"/teams"}>Teams</Link>
       </li>
-      <li>
+      {/* <li>
         <Link href={"/players"}>Players</Link>
-      </li>
+      </li> */}
     </>
   );
 };

@@ -16,6 +16,18 @@ const SingleTeamPage = () => {
     },
   });
 
+  const deletePlayer = api.player.delete.useMutation({
+    onSuccess: () => {
+      void refetchTeams();
+    },
+  });
+
+  const deleteTeam = api.team.delete.useMutation({
+    onSuccess: () => {
+      void refetchTeams();
+    },
+  });
+
   return (
     <div className="container mx-auto">
       <h1 className="">{team?.name}</h1>
@@ -26,6 +38,15 @@ const SingleTeamPage = () => {
           void createPlayer.mutate({ firstName, lastName, teamId })
         }
       />
+      <button
+        className="btn-error btn ml-4"
+        onClick={() => {
+          void deleteTeam.mutate({ id });
+          router.push("/teams");
+        }}
+      >
+        Delete Team
+      </button>
       <div className="overflow-x-auto">
         <table className="table w-full">
           {/* head */}
@@ -34,6 +55,7 @@ const SingleTeamPage = () => {
               <th></th>
               <th>First Name</th>
               <th>Last Name</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -42,6 +64,15 @@ const SingleTeamPage = () => {
                 <th>{idx + 1}</th>
                 <td>{player.firstName}</td>
                 <td>{player.lastName}</td>
+                <td>
+                  <button
+                    className="btn-error btn"
+                    onClick={() => void deletePlayer.mutate({ id: player.id })}
+                  >
+                    Delete
+                  </button>
+                  <button className=" btn ml-1">Edit</button>
+                </td>
               </tr>
             ))}
           </tbody>

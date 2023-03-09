@@ -1,10 +1,14 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { Header } from "~/components/Header";
+import { useEffect } from "react";
 
-import { api } from "~/utils/api";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/teams");
+  }, []);
   return (
     <>
       <Head>
