@@ -44,6 +44,24 @@ export const playerRouter = createTRPCRouter({
       });
     }),
 
+  update: protectedProcedure
+    .input(
+      z.object({
+        playerId: z.string(),
+        firstName: z.string(),
+        lastName: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.player.update({
+        where: { id: input.playerId },
+        data: {
+          firstName: input.firstName,
+          lastName: input.lastName,
+        },
+      });
+    }),
+
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {

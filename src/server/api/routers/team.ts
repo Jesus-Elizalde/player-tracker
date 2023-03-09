@@ -42,6 +42,26 @@ export const teamRouter = createTRPCRouter({
       });
     }),
 
+  update: protectedProcedure
+    .input(
+      z.object({
+        teamId: z.string(),
+        name: z.string(),
+        coach: z.string(),
+        manager: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.team.update({
+        where: { id: input.teamId },
+        data: {
+          name: input.name,
+          coach: input.coach,
+          manager: input.manager,
+        },
+      });
+    }),
+
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {

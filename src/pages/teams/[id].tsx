@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import { EditPlayerModal } from "~/components/EditPlayerModal";
+import { EditTeamModal } from "~/components/EditTeamModal";
 import { NewPlayerModal } from "~/components/NewPlayerModal";
 import { api } from "~/utils/api";
 
@@ -10,7 +12,19 @@ const SingleTeamPage = () => {
     id,
   });
 
+  const updateTeam = api.team.update.useMutation({
+    onSuccess: () => {
+      void refetchTeams();
+    },
+  });
+
   const createPlayer = api.player.create.useMutation({
+    onSuccess: () => {
+      void refetchTeams();
+    },
+  });
+
+  const updatePlayer = api.player.update.useMutation({
     onSuccess: () => {
       void refetchTeams();
     },
@@ -38,8 +52,19 @@ const SingleTeamPage = () => {
           void createPlayer.mutate({ firstName, lastName, teamId })
         }
       />
+      <EditTeamModal
+        teamId={id}
+        onSave={({ name, coach, manager, teamId }) =>
+          void updateTeam.mutate({
+            name,
+            coach,
+            manager,
+            teamId,
+          })
+        }
+      />
       <button
-        className="btn-error btn ml-4"
+        className="btn-error btn ml-3"
         onClick={() => {
           void deleteTeam.mutate({ id });
           router.push("/teams");
@@ -71,7 +96,16 @@ const SingleTeamPage = () => {
                   >
                     Delete
                   </button>
-                  <button className=" btn ml-1">Edit</button>
+                  <EditPlayerModal
+                    playerId={player.id}
+                    onSave={({ firstName, lastName, playerId }) =>
+                      void updatePlayer.mutate({
+                        firstName,
+                        lastName,
+                        playerId,
+                      })
+                    }
+                  />
                 </td>
               </tr>
             ))}
